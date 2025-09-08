@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- BREAKING: Changed Add method signature to use out parameter instead of return value
+
 ## [0.2.0] - 2025-09-08
 
 ### Added

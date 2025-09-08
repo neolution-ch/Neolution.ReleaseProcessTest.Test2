@@ -10,10 +10,10 @@ public class Calculator
     /// </summary>
     /// <param name="a">First number</param>
     /// <param name="b">Second number</param>
-    /// <returns>Sum of a and b</returns>
-    public double Add(double a, double b)
+    /// <param name="result">Output parameter for the sum of a and b</param>
+    public void Add(double a, double b, out double result)
     {
-        return a + b;
+        result = a + b;
     }
 
     /// <summary>
