@@ -343,7 +343,6 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
    git checkout -b release/v1.0.0
    git push --set-upstream origin release/v1.0.0
    ```
-2. Switch to `release/v1.0.0` branch in GitHub UI
 
 **GitHub Actions:**
 1. Navigate to **Actions** tab
@@ -411,7 +410,6 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
 2. Add new features for v1.1.0 (post-v1.0.0 features)
 3. Update CHANGELOG.md [Unreleased] section with new v1.1.0 features
 4. Commit and push to main
-5. Switch to `release/v1.0.0` branch in GitHub UI
 
 **GitHub Actions:**
 1. Select **"Create Branch Release"** workflow
@@ -442,7 +440,7 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
 - Release candidate testing complete
 
 **Developer Actions:**
-- Switch to `release/v1.0.0` branch in GitHub UI
+- No code changes required
 
 **GitHub Actions:**
 1. Select **"Create Branch Release"** workflow
@@ -471,6 +469,9 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
 - Main branch has newer v1.1.0 features but no v1.0.0 changelog update
 
 **Developer Actions:**
+- No code changes required
+
+**GitHub Actions:**
 1. Create Pull Request from `release/v1.0.0` to `main`
 2. Title: "Merge v1.0.0 release back to main"
 3. **Important**: Resolve CHANGELOG.md merge conflicts carefully
@@ -478,9 +479,6 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
    - Keep v1.0.0 section from release branch
    - Do not remove any entries, only resolve conflicts
 4. Merge the PR (branch will be automatically deleted)
-
-**GitHub Actions:**
-- No workflow execution required
 
 **Expected Repository State After:**
 - Main branch has both v1.0.0 release history and v1.1.0 features
