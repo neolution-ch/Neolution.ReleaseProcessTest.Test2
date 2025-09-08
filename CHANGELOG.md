@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - BREAKING: Changed Add method signature to use out parameter instead of return value
 
+### Fixed
+
+- Added error handling for division by zero in Divide method
+
 ## [0.2.0] - 2025-09-08
 
 ### Added
