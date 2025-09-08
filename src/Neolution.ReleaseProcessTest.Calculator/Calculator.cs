@@ -26,4 +26,15 @@ public class Calculator
     {
         return a - b;
     }
+
+    /// <summary>
+    /// Multiplies two numbers
+    /// </summary>
+    /// <param name="a">First number</param>
+    /// <param name="b">Second number</param>
+    /// <returns>Product of a and b</returns>
+    public double Multiply(double a, double b)
+    {
+        return a * b;
+    }
 }
