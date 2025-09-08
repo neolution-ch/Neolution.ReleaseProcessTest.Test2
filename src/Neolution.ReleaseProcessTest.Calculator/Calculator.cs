@@ -1,7 +1,7 @@
 namespace Neolution.ReleaseProcessTest.Calculator;
 
 /// <summary>
-/// Basic calculator class with arithmetic operations
+/// Basic calculator class with some arithmetic operations
 /// </summary>
 public class Calculator
 {
