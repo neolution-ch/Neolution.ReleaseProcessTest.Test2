@@ -37,4 +37,15 @@ public class Calculator
     {
         return a * b;
     }
+
+    /// <summary>
+    /// Divides two numbers
+    /// </summary>
+    /// <param name="a">Dividend</param>
+    /// <param name="b">Divisor</param>
+    /// <returns>Quotient of a and b</returns>
+    public double Divide(double a, double b)
+    {
+        return a / b;
+    }
 }
