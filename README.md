@@ -109,6 +109,8 @@ There are three release scenarios. The first path will cover the vast majority o
     ```
     *From this point, the `release/v2.0.0` branch is feature-frozen. Only fixes for this specific release are allowed. `main` is now free to accept features for the next version (e.g., `2.1.0`).*
     
+    **Critical**: The release branch must be preserved until the stable release is complete. Do not delete the release branch before producing the final stable release, as this could make it impossible to continue isolated stabilization work.
+
     *Note: The 'Create Branch Release' workflow automatically detects whether it's running from a `release/*` or `hotfix/*` branch and adjusts version detection accordingly.*
     
     2.  **Publish Pre-Releases (e.g., RCs) from the Release Branch.**
@@ -118,8 +120,8 @@ There are three release scenarios. The first path will cover the vast majority o
 
 3.  **Apply Bug Fixes to the Release Branch.**
     *   If a bug is found during testing, commit the fix to the `release/v2.0.0` branch first.
-    *   **Critical**: The release branch must be preserved until the stable release is complete. Do not delete or merge the release branch before producing the final stable release, as this would make it impossible to continue stabilization work.
-    *   **Note**: Bug fixes could be merged back into `main` at any point during the stabilization process, but the release branch itself cannot be deleted until after the stable release is complete.
+    
+    *   **Note**: Bug fixes can be cherry-picked into `main` at any point during the stabilization process, but the release branch itself cannot be merged into `main` until after the stable release is complete.
 
 4.  **Publish the Final Stable Release.**
     *   Run the "Create Branch Release" workflow one last time from the `release/v2.0.0` branch.
