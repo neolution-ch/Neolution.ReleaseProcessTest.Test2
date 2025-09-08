@@ -48,4 +48,15 @@ public class Calculator
     {
         return a / b;
     }
+
+    /// <summary>
+    /// Raises a number to a power
+    /// </summary>
+    /// <param name="base">Base number</param>
+    /// <param name="exponent">Exponent</param>
+    /// <returns>Base raised to the power of exponent</returns>
+    public double Power(double @base, double exponent)
+    {
+        return Math.Pow(@base, exponent);
+    }
 }
