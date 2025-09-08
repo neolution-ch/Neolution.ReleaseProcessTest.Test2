@@ -42,4 +42,18 @@ public class CalculatorTests
         // Assert
         result.ShouldBe(expected);
     }
+
+    [Theory]
+    [InlineData(2, 3, 6)]
+    [InlineData(-1, 1, -1)]
+    [InlineData(0, 5, 0)]
+    [InlineData(10.5, 2, 21)]
+    public void Multiply_ShouldReturnCorrectProduct(double a, double b, double expected)
+    {
+        // Act
+        var result = _calculator.Multiply(a, b);
+
+        // Assert
+        result.ShouldBe(expected);
+    }
 }
