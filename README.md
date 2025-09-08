@@ -116,22 +116,20 @@ There are three release scenarios. The first path will cover the vast majority o
     *   **Crucially, use the "Branch" dropdown to select your `release/v2.0.0` branch.**
     *   For the inputs, set the `type` to `alpha`, `beta`, or `rc`. The version will be automatically parsed from the branch name and the appropriate suffix appended (e.g., `2.0.0-rc.0`).
 
-3.  **Apply Bug Fixes to the Release Branch and `main`.**
+3.  **Apply Bug Fixes to the Release Branch.**
     *   If a bug is found during testing, commit the fix to the `release/v2.0.0` branch first.
-    *   **CRITICAL: Immediately merge the fix back into `main`** to prevent regressions.
-    ```bash
-    # After committing the fix to release/v2.0.0
-    git checkout main
-    git pull
-    git merge --no-ff release/v2.0.0
-    git push
-    ```
+    *   **Critical**: The release branch must be preserved until the stable release is complete. Do not delete or merge the release branch before producing the final stable release, as this would make it impossible to continue stabilization work.
+    *   **Note**: Bug fixes could be merged back into `main` at any point during the stabilization process, but the release branch itself cannot be deleted until after the stable release is complete.
 
 4.  **Publish the Final Stable Release.**
     *   Run the "Create Branch Release" workflow one last time from the `release/v2.0.0` branch.
     *   Set the `type` to `stable`. The version will be automatically parsed from the branch name.
 
-5.  **Clean up.** The `release/v2.0.0` branch can now be safely deleted.
+5.  **Merge Release Branch Back to `main`.**
+    *   Create a pull request from the `release/v2.0.0` branch to `main` and merge it to ensure all fixes are included in future development.
+    *   Resolve any CHANGELOG.md merge conflicts carefully, preserving both release history and ongoing development entries.
+
+6.  **Clean up.** The `release/v2.0.0` branch can now be safely deleted.
 
 ### Path 3: The Hotfix Release (The Exceptional Case)
 

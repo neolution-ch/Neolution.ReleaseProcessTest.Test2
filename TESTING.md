@@ -378,8 +378,6 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
 2. Fix the bug in code
 3. Update CHANGELOG.md [Unreleased] section with fix details in Fixed category
 4. Commit and push to `release/v1.0.0` branch
-5. Create Pull Request from `release/v1.0.0` to `main` and merge to get bug fix into main
-6. Switch to `release/v1.0.0` branch in GitHub UI
 
 **GitHub Actions:**
 1. Select **"Create Branch Release"** workflow
@@ -391,13 +389,14 @@ This phase demonstrates using release/* branches for feature-frozen stabilizatio
 **Expected Repository State After:**
 - New tag: `v1.0.0-beta.0`
 - Beta pre-release created from release branch
-- Both main and release branch have the bug fix
+- `release/v1.0.0` branch contains the bug fix
+- Main branch does not yet have the bug fix (remains diverged)
 
 **Verification:**
 - Check v1.0.0-beta.0 tag exists
 - Verify beta.0 pre-release
-- Confirm both main and `release/v1.0.0` have the bug fix
-- Check that main branch has received the bug fix via merge
+- Confirm `release/v1.0.0` branch contains the bug fix
+- Verify main branch does not have the bug fix (demonstrates isolation)
 
 ---
 
