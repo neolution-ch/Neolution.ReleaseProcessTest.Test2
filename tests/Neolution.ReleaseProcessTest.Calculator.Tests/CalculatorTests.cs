@@ -10,11 +10,21 @@ public class CalculatorTests
 {
     private readonly Calculator _calculator;
 
+    /// <summary>
+    /// Initializes a new instance of the CalculatorTests class.
+    /// Sets up the Calculator instance for testing.
+    /// </summary>
     public CalculatorTests()
     {
         _calculator = new Calculator();
     }
 
+    /// <summary>
+    /// Tests that the Add method returns the correct sum for various inputs.
+    /// </summary>
+    /// <param name="a">First number to add.</param>
+    /// <param name="b">Second number to add.</param>
+    /// <param name="expected">Expected sum result.</param>
     [Theory]
     [InlineData(2, 3, 5)]
     [InlineData(-1, 1, 0)]
@@ -29,6 +39,12 @@ public class CalculatorTests
         result.ShouldBe(expected);
     }
 
+    /// <summary>
+    /// Tests that the Subtract method returns the correct difference for various inputs.
+    /// </summary>
+    /// <param name="a">Minuend.</param>
+    /// <param name="b">Subtrahend.</param>
+    /// <param name="expected">Expected difference result.</param>
     [Theory]
     [InlineData(5, 3, 2)]
     [InlineData(-1, 1, -2)]
@@ -43,6 +59,12 @@ public class CalculatorTests
         result.ShouldBe(expected);
     }
 
+    /// <summary>
+    /// Tests that the Multiply method returns the correct product for various inputs.
+    /// </summary>
+    /// <param name="a">First factor.</param>
+    /// <param name="b">Second factor.</param>
+    /// <param name="expected">Expected product result.</param>
     [Theory]
     [InlineData(2, 3, 6)]
     [InlineData(-1, 1, -1)]
