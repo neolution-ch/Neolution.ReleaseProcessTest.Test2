@@ -33,7 +33,7 @@ public class CalculatorTests
     public void Add_ShouldReturnCorrectSum(double a, double b, double expected)
     {
         // Act
-        var result = _calculator.Add(a, b);
+        _calculator.Add(a, b, out double result);
 
         // Assert
         result.ShouldBe(expected);
