@@ -1,7 +1,7 @@
 namespace Neolution.ReleaseProcessTest.Calculator;
 
 /// <summary>
-/// Basic calculator class with some arithmetic operations
+/// Basic calculator class with basic arithmetic operations
 /// </summary>
 public class Calculator
 {
@@ -61,6 +61,10 @@ public class Calculator
     /// <returns>Base raised to the power of exponent</returns>
     public double Power(double @base, double exponent)
     {
+        if (@base == 2)
+        {
+            throw new Exception("Unnecessary exception");
+        }
         return Math.Pow(@base, exponent);
     }
 
