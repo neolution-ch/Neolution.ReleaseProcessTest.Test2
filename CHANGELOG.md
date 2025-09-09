@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Added validation to prevent domain error for negative base with fractional exponent in Power method
+
 ## [1.0.3] - 2025-09-09
 
 ### Fixed

@@ -61,6 +61,11 @@ public class Calculator
     /// <returns>Base raised to the power of exponent</returns>
     public double Power(double @base, double exponent)
     {
+        // Hotfix: Prevent domain error for negative base with fractional exponent
+        if (@base < 0 && exponent % 1 != 0)
+        {
+            throw new ArgumentException("Cannot raise negative base to fractional power.");
+        }
         return Math.Pow(@base, exponent);
     }
 }
