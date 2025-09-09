@@ -3,7 +3,7 @@ name: Release Please Auto
 on:
   push:
     branches:
-      - main
+      - asdadsadasasfd
   pull_request:
     types:
       - opened
