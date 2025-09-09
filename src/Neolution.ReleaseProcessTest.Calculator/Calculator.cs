@@ -67,4 +67,32 @@ public class Calculator
         }
         return Math.Pow(@base, exponent);
     }
+
+    /// <summary>
+    /// Calculates the square root of a number
+    /// </summary>
+    /// <param name="value">The number to find the square root of</param>
+    /// <returns>Square root of the value</returns>
+    public double SquareRoot(double value)
+    {
+        if (value < 0)
+        {
+            throw new ArgumentException("Cannot calculate square root of a negative number.");
+        }
+        return Math.Sqrt(value);
+    }
+
+    /// <summary>
+    /// Calculates the natural logarithm of a number
+    /// </summary>
+    /// <param name="value">The number to find the natural logarithm of</param>
+    /// <returns>Natural logarithm of the value</returns>
+    public double Logarithm(double value)
+    {
+        if (value <= 0)
+        {
+            throw new ArgumentException("Cannot calculate logarithm of a non-positive number.");
+        }
+        return Math.Log(value);
+    }
 }
