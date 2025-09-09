@@ -63,10 +63,9 @@ jobs:
           if [[ "${{ inputs.type }}" == "stable" ]]; then
             # Stable release
             if [[ "$BRANCH_TYPE" == "hotfix" ]]; then
-              # For hotfix branches, find the baseline tag SHA dynamically
-              BASELINE_TAG=$(git describe --tags --abbrev=0)
-              BASELINE_TAG_SHA=$(git rev-parse $BASELINE_TAG)
-              echo "Using baseline tag: $BASELINE_TAG (SHA: $BASELINE_TAG_SHA)"
+              # For hotfix branches, use target-branch to work from hotfix context
+              BRANCH_NAME="${{ github.ref_name }}"
+              echo "Creating release PR from hotfix branch: $BRANCH_NAME"
 
               release-please release-pr \
                 --token=$GITHUB_TOKEN \
@@ -76,7 +75,7 @@ jobs:
                 --changelog-path=CHANGELOG.md \
                 --pull-request-title-pattern="chore: release \${version}" \
                 --label="autorelease: pending" \
-                --latest-tag-sha=$BASELINE_TAG_SHA
+                --target-branch=$BRANCH_NAME
             else
               # For release branches, use the branch version
               BRANCH_NAME="${{ github.ref_name }}"
