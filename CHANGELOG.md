@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added SquareRoot method to Calculator class
+- Added Logarithm method to Calculator class
+
 ## [1.0.1] - 2025-09-09
 
 ### Fixed
