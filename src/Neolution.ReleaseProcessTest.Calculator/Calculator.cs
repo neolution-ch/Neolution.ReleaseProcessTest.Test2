@@ -61,10 +61,6 @@ public class Calculator
     /// <returns>Base raised to the power of exponent</returns>
     public double Power(double @base, double exponent)
     {
-        if (@base == 2)
-        {
-            throw new Exception("Unnecessary exception");
-        }
         return Math.Pow(@base, exponent);
     }
 }

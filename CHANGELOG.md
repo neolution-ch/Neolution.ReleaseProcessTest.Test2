@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Removed unnecessary exception in Power method for base == 2, allowing negative exponents
+
 ## [1.0.2] - 2025-09-09
 
 ### Fixed
