@@ -107,6 +107,25 @@ jobs:
               --plugins.@release-it/keep-a-changelog.addVersionUrl=true \
               --ci
           fi
+      - name: Create squashed PR and delete branch
+        if: ${{ inputs.type == 'stable' }}
+        run: |
+          if [[ "$BRANCH_TYPE" == "hotfix" ]]; then
+            BASE_COMMIT=$(git rev-parse $(git describe --tags --abbrev=0))
+            TITLE="Hotfix ${{ env.VERSION }} - Merge ${{ github.ref_name }} to main"
+            BODY="Automated PR to merge hotfix ${{ env.VERSION }} from ${{ github.ref_name }} to main. This PR contains a single squashed commit of all changes including the release-it chore commit."
+          else
+            BASE_COMMIT=$(git merge-base origin/main HEAD)
+            TITLE="Release ${{ env.VERSION }} - Merge ${{ github.ref_name }} to main"
+            BODY="Automated PR to merge release ${{ env.VERSION }} from ${{ github.ref_name }} to main. This PR contains a single squashed commit of all changes including the release-it chore commit."
+          fi
+          NEW_BRANCH="merge-${{ github.ref_name }}"
+          git checkout -b $NEW_BRANCH
+          git reset --soft $BASE_COMMIT
+          git commit -m "Squash all commits for ${{ env.VERSION }}"
+          git push origin $NEW_BRANCH
+          gh pr create --title "$TITLE" --body "$BODY" --base main --head $NEW_BRANCH --squash
+          git push origin --delete ${{ github.ref_name }}
 
       - name: Display release information
         run: |
