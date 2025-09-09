@@ -1,0 +1,111 @@
+name: Test Release Please - Branch Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Release type'
+        type: choice
+        options:
+          - stable
+          - rc
+          - beta
+          - alpha
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Release Please
+        run: |
+          npm install -g release-please
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate branch and detect type
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          echo "Current branch: $BRANCH_NAME"
+
+          if [[ "$BRANCH_NAME" == release/* ]]; then
+            echo "BRANCH_TYPE=release" >> $GITHUB_ENV
+            echo "Running branch release from release branch"
+          elif [[ "$BRANCH_NAME" == hotfix/* ]]; then
+            echo "BRANCH_TYPE=hotfix" >> $GITHUB_ENV
+            echo "Running branch release from hotfix branch"
+          else
+            echo "Error: Branch releases can only be created from release/* or hotfix/* branches"
+            exit 1
+          fi
+
+      - name: Run Release Please for Branch Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ "${{ inputs.type }}" == "stable" ]]; then
+            # Stable release
+            if [[ "$BRANCH_TYPE" == "hotfix" ]]; then
+              # For hotfix branches, use patch increment
+              release-please release-pr \
+                --repo-url=${{ github.repository }} \
+                --package-name=. \
+                --release-type=simple \
+                --changelog-path=CHANGELOG.md \
+                --pull-request-title-pattern="chore: release \${version}" \
+                --label="autorelease: pending"
+            else
+              # For release branches, use the branch version
+              BRANCH_NAME="${{ github.ref_name }}"
+              BASE_VERSION=${BRANCH_NAME#release/v}
+              release-please release-pr \
+                --repo-url=${{ github.repository }} \
+                --package-name=. \
+                --release-type=simple \
+                --changelog-path=CHANGELOG.md \
+                --pull-request-title-pattern="chore: release \${version}" \
+                --label="autorelease: pending" \
+                --release-version=$BASE_VERSION
+            fi
+          else
+            # Pre-release
+            release-please release-pr \
+              --repo-url=${{ github.repository }} \
+              --package-name=. \
+              --release-type=simple \
+              --changelog-path=CHANGELOG.md \
+              --pull-request-title-pattern="chore: release \${version}" \
+              --label="autorelease: pending" \
+              --prerelease=${{ inputs.type }}
+          fi
+
+      - name: Display release information
+        run: |
+          echo "✅ Release Please branch release initiated!"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Branch Type: ${{ env.BRANCH_TYPE }}"
+          echo "Release Type: ${{ inputs.type }}"
+          echo ""
+          echo "📋 Release Please has created a release PR"
+          echo " Check PRs: https://github.com/${{ github.repository }}/pulls"
+          echo "🔗 Check the release: https://github.com/${{ github.repository }}/releases"
+          echo "🏷️ View tags: https://github.com/${{ github.repository }}/tags"
+          echo ""
+          echo "Note: Merge the release PR manually or configure auto-merge in repository settings"
